@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: jason
+      POSTGRES_USER: jason
+      POSTGRES_PASSWORD: statham
+    volumes:
+      - database_volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  app:
+    build: .
+    volumes:
+      - ./settings.yaml:/settings.yaml
+    depends_on:
+      - db
+
+volumes:
+  database_volume:
